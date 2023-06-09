@@ -10,12 +10,8 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.skyBlue,
-        title: Text(
+        title: const Text(
           "Pomo",
-          style: latoW400(
-            size: 14,
-            color: AppColors.white,
-          ),
         ),
       ),
       body: Center(
