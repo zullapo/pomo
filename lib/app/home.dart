@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pomo/app/shared/colors.dart';
-import 'package:pomo/app/shared/fonts.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -20,10 +19,7 @@ class Home extends StatelessWidget {
           children: [
             Text(
               "Welcome",
-              style: latoW400(
-                size: 14,
-                color: AppColors.black,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
         ),

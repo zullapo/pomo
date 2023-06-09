@@ -21,6 +21,12 @@ class Main extends StatelessWidget {
           primary: AppColors.skyBlue,
           secondary: AppColors.yellow,
         ),
+        textTheme: theme.textTheme.copyWith(
+          bodyMedium: latoW400(
+            size: 14,
+            color: AppColors.black,
+          ),
+        ),
         appBarTheme: AppBarTheme(
           titleTextStyle: latoBold(
             size: 20,
