@@ -26,6 +26,10 @@ class Main extends StatelessWidget {
             size: 14,
             color: AppColors.black,
           ),
+          headlineSmall: latoW400(
+            size: 24,
+            color: AppColors.black,
+          ),
         ),
         appBarTheme: AppBarTheme(
           titleTextStyle: latoBold(

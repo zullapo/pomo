@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pomo/app/shared/colors.dart';
+import 'package:pomo/app/widgets/timer.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -20,6 +21,12 @@ class Home extends StatelessWidget {
             Text(
               "Welcome",
               style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            AppTimer(
+              dateTime: DateTime.now(),
             ),
           ],
         ),
