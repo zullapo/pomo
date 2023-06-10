@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pomo/app/shared/colors.dart';
+import 'package:pomo/app/shared/constants.dart';
 import 'package:pomo/app/widgets/timer.dart';
 
 class Home extends StatelessWidget {
@@ -7,30 +9,47 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.skyBlue,
-        title: const Text(
-          "Pomo",
-        ),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Welcome",
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            AppTimer(
-              dateTime: DateTime.now(),
-            ),
-          ],
+    final bodyPage = SafeArea(
+      child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Welcome",
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              AppTimer(
+                dateTime: DateTime.now(),
+              ),
+            ],
+          ),
         ),
       ),
     );
+
+    return !isIos
+        ? Scaffold(
+            appBar: AppBar(
+              backgroundColor: AppColors.skyBlue,
+              title: const Text(
+                "Pomo",
+              ),
+            ),
+            body: bodyPage,
+          )
+        : CupertinoPageScaffold(
+            navigationBar: const CupertinoNavigationBar(
+              backgroundColor: AppColors.skyBlue,
+              middle: Text("Pomo"),
+            ),
+            child: bodyPage,
+          );
   }
 }
