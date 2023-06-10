@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pomo/app/shared/colors.dart';
 import 'package:pomo/app/shared/constants.dart';
+import 'package:pomo/app/shared/fonts.dart';
 import 'package:pomo/app/widgets/timer.dart';
 
 class Home extends StatelessWidget {
@@ -45,9 +46,15 @@ class Home extends StatelessWidget {
             body: bodyPage,
           )
         : CupertinoPageScaffold(
-            navigationBar: const CupertinoNavigationBar(
+            navigationBar: CupertinoNavigationBar(
               backgroundColor: AppColors.skyBlue,
-              middle: Text("Pomo"),
+              middle: Text(
+                "Pomo",
+                style: latoBold(
+                  size: 20,
+                  color: AppColors.white,
+                ),
+              ),
             ),
             child: bodyPage,
           );
