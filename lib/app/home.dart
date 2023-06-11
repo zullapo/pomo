@@ -10,22 +10,29 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+
+    final AppBar appBar = AppBar(
+      backgroundColor: AppColors.skyBlue,
+      title: const Text(
+        "Pomo",
+      ),
+    );
+
+    final double availableHeight = mediaQuery.size.height -
+        appBar.preferredSize.height -
+        mediaQuery.padding.top;
+
     final bodyPage = SafeArea(
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         child: Container(
-          height: MediaQuery.of(context).size.height,
+          height: availableHeight,
           alignment: Alignment.center,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                "Welcome",
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
               AppTimer(
                 dateTime: DateTime.now(),
               ),
@@ -34,6 +41,7 @@ class Home extends StatelessWidget {
         ),
       ),
     );
+
 
     return !isIos
         ? Scaffold(
