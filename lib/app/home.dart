@@ -25,7 +25,7 @@ class Home extends StatelessWidget {
 
     final bodyPage = SafeArea(
       child: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         child: Container(
           height: availableHeight,
           alignment: Alignment.center,
