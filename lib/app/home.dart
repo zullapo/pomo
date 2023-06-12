@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pomo/app/shared/colors.dart';
 import 'package:pomo/app/shared/constants.dart';
-import 'package:pomo/app/shared/fonts.dart';
 import 'package:pomo/app/widgets/timer.dart';
 
 class Home extends StatelessWidget {
@@ -29,19 +28,24 @@ class Home extends StatelessWidget {
         child: Container(
           height: availableHeight,
           alignment: Alignment.center,
-          child: Column(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              AppTimer(
-                dateTime: DateTime.now(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  AppTimer(
+                    dateTime: DateTime.now(),
+                  ),
+                ],
               ),
             ],
           ),
         ),
       ),
     );
-
 
     return !isIos
         ? Scaffold(
@@ -53,10 +57,7 @@ class Home extends StatelessWidget {
               backgroundColor: AppColors.skyBlue,
               middle: Text(
                 "Pomo",
-                style: latoBold(
-                  size: 20,
-                  color: AppColors.white,
-                ),
+                style: Theme.of(context).appBarTheme.titleTextStyle,
               ),
             ),
             child: bodyPage,

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pomo/app/home.dart';
 import 'package:pomo/app/shared/colors.dart';
-import 'package:pomo/app/shared/fonts.dart';
+import 'package:pomo/app/shared/fonts/lato.dart';
+import 'package:pomo/app/shared/fonts/roboto.dart';
 import 'package:responsive_ui/responsive_ui.dart';
 
 void main() => runApp(const Main());
@@ -22,12 +23,8 @@ class Main extends StatelessWidget {
           secondary: AppColors.yellow,
         ),
         textTheme: theme.textTheme.copyWith(
-          bodyMedium: latoW400(
-            size: 14,
-            color: AppColors.black,
-          ),
-          headlineSmall: latoW400(
-            size: 24,
+          titleLarge: robotoMedium(
+            size: 22,
             color: AppColors.black,
           ),
         ),

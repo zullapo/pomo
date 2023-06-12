@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
-TextStyle latoW400({
+TextStyle lato = const TextStyle(
+  fontFamily: "Lato",
+);
+
+TextStyle latoRegular({
   required double size,
   required Color color,
 }) {
-  return TextStyle(
+  return lato.copyWith(
     fontWeight: FontWeight.w400,
-    fontFamily: "Lato",
     fontSize: size,
     color: color,
   );
@@ -16,9 +19,8 @@ TextStyle latoBold({
   required double size,
   required Color color,
 }) {
-  return TextStyle(
+  return lato.copyWith(
     fontWeight: FontWeight.bold,
-    fontFamily: "Lato",
     fontSize: size,
     color: color,
   );

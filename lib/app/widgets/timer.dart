@@ -24,7 +24,7 @@ class AppTimer extends StatelessWidget {
       child: Center(
         child: Text(
           formattedTime,
-          style: Theme.of(context).textTheme.headlineSmall,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
     );
