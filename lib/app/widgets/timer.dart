@@ -9,7 +9,7 @@ class AppTimer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String formattedTime = DateFormat("HH:mm:ss").format(dateTime);
+    String formattedTime = DateFormat("HH:mm").format(dateTime);
 
     return Container(
       width: 200,
