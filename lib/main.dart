@@ -3,7 +3,6 @@ import 'package:pomo/app/home.dart';
 import 'package:pomo/app/shared/colors.dart';
 import 'package:pomo/app/shared/fonts/lato.dart';
 import 'package:pomo/app/shared/fonts/roboto.dart';
-import 'package:responsive_ui/responsive_ui.dart';
 
 void main() => runApp(const Main());
 
@@ -12,7 +11,6 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Responsive.setGlobalBreakPoints(768, 992, 1200, 1400);
     final ThemeData theme = ThemeData();
     return MaterialApp(
       title: "Pomo",
