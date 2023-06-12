@@ -45,12 +45,7 @@ class Home extends StatelessWidget {
 
     return !isIos
         ? Scaffold(
-            appBar: AppBar(
-              backgroundColor: AppColors.skyBlue,
-              title: const Text(
-                "Pomo",
-              ),
-            ),
+            appBar: appBar,
             body: bodyPage,
           )
         : CupertinoPageScaffold(
