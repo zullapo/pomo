@@ -15,6 +15,13 @@ class StartButton extends ConsumerWidget {
       onPressed: () {
         ref.read(flagProvider("startButtonStarted").notifier).state = !started;
       },
+      style: ElevatedButton.styleFrom(
+        shape: const CircleBorder(
+          side: BorderSide(
+            color: Colors.transparent,
+          ),
+        ),
+      ),
       child: Icon(
         !started ? Icons.play_arrow : Icons.pause,
       ),
