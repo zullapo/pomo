@@ -42,6 +42,7 @@ dependencies:
   riverpod: ^2.3.6
   intl: ^0.18.1
   universal_platform: ^1.0.0+1
+  flutter_riverpod: ^2.3.6
 
 dev_dependencies:
   flutter_test:

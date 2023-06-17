@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pomo/app/home.dart';
 import 'package:pomo/app/shared/colors.dart';
 import 'package:pomo/app/shared/fonts/lato.dart';
 import 'package:pomo/app/shared/fonts/roboto.dart';
 
-void main() => runApp(const Main());
+void main() => runApp(const ProviderScope(child: Main()));
 
 class Main extends StatelessWidget {
   const Main({super.key});

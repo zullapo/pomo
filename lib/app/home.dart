@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pomo/app/shared/colors.dart';
 import 'package:pomo/app/shared/constants.dart';
+import 'package:pomo/app/widgets/start_button.dart';
 import 'package:pomo/app/widgets/timer.dart';
+import 'package:responsive_ui/responsive_ui.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -28,18 +30,24 @@ class Home extends StatelessWidget {
         child: Container(
           height: availableHeight,
           alignment: Alignment.center,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Responsive(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            alignment: WrapAlignment.center,
+            runSpacing: 15.0,
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  AppTimer(
-                    dateTime: DateTime.now(),
-                  ),
-                ],
+              Div(
+                division: const Division(colS: 12),
+                child: Column(
+                  children: [
+                    AppTimer(
+                      dateTime: DateTime.now(),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const StartButton(),
+                  ],
+                ),
               ),
             ],
           ),
