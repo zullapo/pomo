@@ -30,22 +30,20 @@ class Home extends StatelessWidget {
         child: Container(
           height: availableHeight,
           alignment: Alignment.center,
-          child: Responsive(
+          child: const Responsive(
             crossAxisAlignment: WrapCrossAlignment.center,
             alignment: WrapAlignment.center,
             runSpacing: 15.0,
             children: [
               Div(
-                division: const Division(colS: 12),
+                division: Division(colS: 12),
                 child: Column(
                   children: [
-                    AppTimer(
-                      dateTime: DateTime.now(),
-                    ),
-                    const SizedBox(
+                    AppTimer(),
+                    SizedBox(
                       height: 15,
                     ),
-                    const StartButton(),
+                    StartButton(),
                   ],
                 ),
               ),

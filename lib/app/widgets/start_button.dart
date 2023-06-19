@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pomo/app/riverpod/family_state_providers.dart';
+import 'package:pomo/app/shared/utils/format_duration.dart';
 
 class StartButton extends ConsumerWidget {
   const StartButton({super.key});
@@ -11,10 +14,36 @@ class StartButton extends ConsumerWidget {
       flagProvider("startButtonStarted"),
     );
 
+    var stopwatch = ref.watch(
+      stopwatchProvider,
+    );
+
+    var timerDuration = ref.watch(
+      timerDurationProvider,
+    );
+
+    void stop() {
+      ref.read(timerProvider.notifier).state.cancel();
+      ref.read(stopwatchProvider.notifier).state.stop();
+    }
+
+    void start() {
+      if (!started) {
+        Timer periodicTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+          String timerDisplay = formatDuration(
+              Duration(seconds: timerDuration) - stopwatch.elapsed);
+          ref.read(timerDisplayProvider.notifier).state = timerDisplay;
+          stopwatch.start();
+        });
+        ref.read(timerProvider.notifier).state = periodicTimer;
+      } else {
+        stop();
+      }
+      ref.read(flagProvider("startButtonStarted").notifier).state = !started;
+    }
+
     return ElevatedButton(
-      onPressed: () {
-        ref.read(flagProvider("startButtonStarted").notifier).state = !started;
-      },
+      onPressed: start,
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.all(20.0),
         shape: const CircleBorder(
