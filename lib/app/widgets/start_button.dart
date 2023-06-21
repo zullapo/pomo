@@ -27,15 +27,30 @@ class StartButton extends ConsumerWidget {
       ref.read(stopwatchProvider.notifier).state.stop();
     }
 
+    void reset() {
+      ref.read(stopwatchProvider.notifier).state.reset();
+    }
+
     void start() {
       if (!started) {
-        Timer periodicTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-          String timerDisplay = formatDuration(
-              Duration(seconds: timerDuration) - stopwatch.elapsed);
-          ref.read(timerDisplayProvider.notifier).state = timerDisplay;
-          stopwatch.start();
+        Timer periodicTimer =
+            Timer.periodic(const Duration(seconds: 1), (timer) {
+          Duration duration = stopwatch.elapsedTicks < 0
+              ? Duration(seconds: timerDuration) - stopwatch.elapsed
+              : Duration(seconds: timerDuration + 1) - stopwatch.elapsed;
+          if (duration.inSeconds == 0) {
+            stop();
+            reset();
+            ref.read(flagProvider("startButtonStarted").notifier).state = false;
+            ref.read(timerDisplayProvider.notifier).state =
+                formatDuration(Duration(seconds: timerDuration));
+          } else {
+            String timerDisplay = formatDuration(duration);
+            ref.read(timerDisplayProvider.notifier).state = timerDisplay;
+          }
         });
         ref.read(timerProvider.notifier).state = periodicTimer;
+        stopwatch.start();
       } else {
         stop();
       }
