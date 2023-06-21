@@ -8,7 +8,7 @@ final flagProvider = StateProvider.family<bool, String>(
 );
 
 final timerDurationProvider = StateProvider<int>(
-  (ref) => 15,
+  (ref) => 1500,
 );
 
 final stopwatchProvider = StateProvider<Stopwatch>(
