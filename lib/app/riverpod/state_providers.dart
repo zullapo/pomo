@@ -15,8 +15,8 @@ final stopwatchProvider = StateProvider<Stopwatch>(
   (ref) => Stopwatch(),
 );
 
-final timerProvider = StateProvider<Timer>(
-  (ref) => Timer(const Duration(seconds: 0), () {}),
+final timerProvider = StateProvider<Timer?>(
+  (ref) => null,
 );
 
 final timerDisplayProvider = StateProvider<String>(

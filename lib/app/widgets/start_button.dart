@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pomo/app/riverpod/family_state_providers.dart';
+import 'package:pomo/app/riverpod/state_providers.dart';
 import 'package:pomo/app/shared/utils/format_duration.dart';
 
 class StartButton extends ConsumerWidget {
@@ -22,8 +22,12 @@ class StartButton extends ConsumerWidget {
       timerDurationProvider,
     );
 
+    var timer = ref.watch(
+      timerProvider,
+    );
+
     void stop() {
-      ref.read(timerProvider.notifier).state.cancel();
+      ref.read(timerProvider.notifier).state?.cancel();
       ref.read(stopwatchProvider.notifier).state.stop();
     }
 
@@ -31,26 +35,38 @@ class StartButton extends ConsumerWidget {
       ref.read(stopwatchProvider.notifier).state.reset();
     }
 
+    void displayTimer({
+      required Duration duration,
+    }) {
+      String timerDisplay = formatDuration(duration);
+      ref.read(timerDisplayProvider.notifier).state = timerDisplay;
+    }
+
+    void resetOnZeroDuration({
+      required Duration duration,
+    }) {
+      if (duration.inSeconds == 0) {
+        stop();
+        reset();
+        ref.read(flagProvider("startButtonStarted").notifier).state = false;
+      }
+    }
+
     void start() {
       if (!started) {
-        Timer periodicTimer =
+        if (timer != null) {
+          displayTimer(
+            duration: Duration(seconds: timerDuration) - stopwatch.elapsed,
+          );
+        }
+        ref.read(timerProvider.notifier).state =
             Timer.periodic(const Duration(seconds: 1), (timer) {
-          Duration duration = stopwatch.elapsedTicks < 0
-              ? Duration(seconds: timerDuration) - stopwatch.elapsed
-              : Duration(seconds: timerDuration + 1) - stopwatch.elapsed;
-          if (duration.inSeconds == 0) {
-            stop();
-            reset();
-            ref.read(flagProvider("startButtonStarted").notifier).state = false;
-            ref.read(timerDisplayProvider.notifier).state =
-                formatDuration(Duration(seconds: timerDuration));
-          } else {
-            String timerDisplay = formatDuration(duration);
-            ref.read(timerDisplayProvider.notifier).state = timerDisplay;
-          }
+          Duration duration =
+              Duration(seconds: timerDuration) - stopwatch.elapsed;
+          resetOnZeroDuration(duration: duration);
+          displayTimer(duration: duration);
         });
-        ref.read(timerProvider.notifier).state = periodicTimer;
-        stopwatch.start();
+        ref.read(stopwatchProvider.notifier).state.start();
       } else {
         stop();
       }
