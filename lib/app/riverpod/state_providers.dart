@@ -3,12 +3,16 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pomo/app/shared/utils/format_duration.dart';
 
-final flagProvider = StateProvider.family<bool, String>(
+final flagProvider = StateProvider.autoDispose.family<bool, String>(
   (ref, value) => false,
 );
 
-final timerDurationProvider = StateProvider<int>(
-  (ref) => 1500,
+final timerDurationProvider = StateProvider.autoDispose<Duration>(
+  (ref) => const Duration(seconds: 15),
+);
+
+final currentTimerDurationProvider = StateProvider(
+  (ref) => ref.read(timerDurationProvider),
 );
 
 final stopwatchProvider = StateProvider<Stopwatch>(
@@ -19,10 +23,10 @@ final timerProvider = StateProvider<Timer?>(
   (ref) => null,
 );
 
-final timerDisplayProvider = StateProvider<String>(
+final timerDisplayProvider = StateProvider.autoDispose<String>(
   (ref) {
-    int timerDuration = ref.watch(timerDurationProvider);
-    String display = formatDuration(Duration(seconds: timerDuration));
+    Duration timerDuration = ref.read(timerDurationProvider);
+    String display = formatDuration(timerDuration);
     return display;
   },
 );

@@ -18,8 +18,8 @@ class StartButton extends ConsumerWidget {
       stopwatchProvider,
     );
 
-    var timerDuration = ref.watch(
-      timerDurationProvider,
+    var currentTimerDuration = ref.watch(
+      currentTimerDurationProvider.notifier,
     );
 
     void stop() {
@@ -38,32 +38,28 @@ class StartButton extends ConsumerWidget {
       ref.read(timerDisplayProvider.notifier).state = timerDisplay;
     }
 
-    void resetOnZeroDuration({
-      required Duration duration,
-    }) {
+    ref.listen(currentTimerDurationProvider, (_, duration) {
       if (duration.inSeconds == 0) {
+        ref.read(currentTimerDurationProvider.notifier).state =
+            ref.read(timerDurationProvider);
         stop();
         reset();
         ref.read(flagProvider("startButtonStarted").notifier).state = false;
       }
-    }
+    });
 
     void start() {
       if (!started) {
         displayTimer(
-          duration: Duration(seconds: timerDuration) - stopwatch.elapsed,
+          duration: currentTimerDuration.state,
         );
         ref.read(timerProvider.notifier).state =
             Timer.periodic(const Duration(seconds: 1), (timer) {
-          Duration duration =
-              Duration(seconds: timerDuration) - stopwatch.elapsed;
-          resetOnZeroDuration(duration: duration);
-          displayTimer(duration: duration);
+          ref.read(currentTimerDurationProvider.notifier).state -=
+              const Duration(seconds: 1);
+          displayTimer(duration: currentTimerDuration.state);
           if (!stopwatch.isRunning) {
-            ref
-                .read(stopwatchProvider.notifier)
-                .state
-                .start();
+            ref.read(stopwatchProvider.notifier).state.start();
           }
         });
       } else {
