@@ -8,7 +8,7 @@ final flagProvider = StateProvider.autoDispose.family<bool, String>(
 );
 
 final timerDurationProvider = StateProvider.autoDispose<Duration>(
-  (ref) => const Duration(minutes: 25),
+  (ref) => const Duration(seconds: 15),
 );
 
 final currentTimerDurationProvider = StateProvider.autoDispose(
