@@ -11,15 +11,15 @@ final timerDurationProvider = StateProvider.autoDispose<Duration>(
   (ref) => const Duration(minutes: 25),
 );
 
-final currentTimerDurationProvider = StateProvider(
+final currentTimerDurationProvider = StateProvider.autoDispose(
   (ref) => ref.read(timerDurationProvider),
 );
 
-final stopwatchProvider = StateProvider<Stopwatch>(
+final stopwatchProvider = StateProvider.autoDispose<Stopwatch>(
   (ref) => Stopwatch(),
 );
 
-final timerProvider = StateProvider<Timer?>(
+final timerProvider = StateProvider.autoDispose<Timer?>(
   (ref) => null,
 );
 
