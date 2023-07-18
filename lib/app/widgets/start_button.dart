@@ -2,7 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pomo/app/riverpod/state_providers.dart';
+import 'package:pomo/app/riverpod/flag_provider.dart';
+import 'package:pomo/app/riverpod/stopwatch_provider.dart';
+import 'package:pomo/app/riverpod/timer_display_provider.dart';
+import 'package:pomo/app/riverpod/timer_duration_provider.dart';
+import 'package:pomo/app/riverpod/timer_provider.dart';
 import 'package:pomo/app/shared/utils/format_duration.dart';
 
 class StartButton extends ConsumerWidget {
@@ -23,12 +27,12 @@ class StartButton extends ConsumerWidget {
     );
 
     void stop() {
-      ref.read(timerProvider.notifier).state?.cancel();
-      ref.read(stopwatchProvider.notifier).state.stop();
+      ref.read(timerProvider)?.cancel();
+      ref.read(stopwatchProvider).stop();
     }
 
     void reset() {
-      ref.read(stopwatchProvider.notifier).state.reset();
+      ref.read(stopwatchProvider).reset();
     }
 
     void displayTimer({
@@ -59,7 +63,7 @@ class StartButton extends ConsumerWidget {
               const Duration(seconds: 1);
           displayTimer(duration: currentTimerDuration.state);
           if (!stopwatch.isRunning) {
-            ref.read(stopwatchProvider.notifier).state.start();
+            stopwatch.start();
           }
         });
       } else {
