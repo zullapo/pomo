@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pomo/app/shared/colors.dart';
 import 'package:pomo/app/shared/constants.dart';
 import 'package:pomo/app/widgets/start_button.dart';
 import 'package:pomo/app/widgets/timer.dart';
@@ -14,7 +13,6 @@ class Home extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context);
 
     final AppBar appBar = AppBar(
-      backgroundColor: AppColors.skyBlue,
       title: const Text(
         "Pomo",
       ),
@@ -60,7 +58,6 @@ class Home extends StatelessWidget {
           )
         : CupertinoPageScaffold(
             navigationBar: CupertinoNavigationBar(
-              backgroundColor: AppColors.skyBlue,
               middle: Text(
                 "Pomo",
                 style: Theme.of(context).appBarTheme.titleTextStyle,

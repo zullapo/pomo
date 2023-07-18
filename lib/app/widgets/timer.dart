@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pomo/app/riverpod/timer_color_provider.dart';
 import 'package:pomo/app/riverpod/timer_display_provider.dart';
-import 'package:pomo/app/shared/colors.dart';
 
 class AppTimer extends ConsumerWidget {
   const AppTimer({super.key});
@@ -12,6 +12,10 @@ class AppTimer extends ConsumerWidget {
       timerDisplayProvider,
     );
 
+    var timerColor = ref.watch(
+      timerColorProvider,
+    );
+
     return Container(
       width: 200,
       height: 200,
@@ -19,7 +23,7 @@ class AppTimer extends ConsumerWidget {
         shape: BoxShape.circle,
         border: Border.all(
           width: 2,
-          color: AppColors.skyBlue,
+          color: timerColor,
         ),
       ),
       child: Center(

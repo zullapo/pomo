@@ -2,11 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pomo/app/riverpod/break_timer_duration_provider.dart';
 import 'package:pomo/app/riverpod/flag_provider.dart';
 import 'package:pomo/app/riverpod/stopwatch_provider.dart';
+import 'package:pomo/app/riverpod/timer_color_provider.dart';
 import 'package:pomo/app/riverpod/timer_display_provider.dart';
 import 'package:pomo/app/riverpod/timer_duration_provider.dart';
 import 'package:pomo/app/riverpod/timer_provider.dart';
+import 'package:pomo/app/shared/colors.dart';
 import 'package:pomo/app/shared/utils/format_duration.dart';
 
 class StartButton extends ConsumerWidget {
@@ -24,6 +27,10 @@ class StartButton extends ConsumerWidget {
 
     var currentTimerDuration = ref.watch(
       currentTimerDurationProvider.notifier,
+    );
+
+    var breakTimerDurationFlag = ref.watch(
+      flagProvider("breakTimerDuration"),
     );
 
     void stop() {
@@ -44,11 +51,25 @@ class StartButton extends ConsumerWidget {
 
     ref.listen(currentTimerDurationProvider, (_, duration) {
       if (duration.inSeconds == 0) {
-        ref.read(currentTimerDurationProvider.notifier).state =
-            ref.read(timerDurationProvider);
+        if (!breakTimerDurationFlag) {
+          ref.read(currentTimerDurationProvider.notifier).state =
+              ref.read(breakTimerDurationProvider);
+        } else {
+          ref.read(currentTimerDurationProvider.notifier).state =
+              ref.read(timerDurationProvider);
+        }
+        ref.read(flagProvider("breakTimerDuration").notifier).state = !breakTimerDurationFlag;
         stop();
         reset();
         ref.read(flagProvider("startButtonStarted").notifier).state = false;
+      }
+    });
+
+    ref.listen(flagProvider("breakTimerDuration"), (_, value) {
+      if (value) {
+        ref.read(timerColorProvider.notifier).state = AppColors.pomodoro;
+      } else {
+        ref.read(timerColorProvider.notifier).state = AppColors.skyBlue;
       }
     });
 
